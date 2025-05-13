@@ -17,8 +17,8 @@ When('I click the login button', () => {
   LoginPage.clickLoginButton();
 });
 
-Then('I should see my account dashboard', () => {
-  LoginPage.elements.verifyAccount().should('be.visible');
+Then('I should see the login success dashboard', () => {
+  LoginPage.verifyAccount();
 });
 
 Then('I should see an error message', () => {

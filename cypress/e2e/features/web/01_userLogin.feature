@@ -10,7 +10,7 @@ Feature: User Login
     When I click on the "Sign In" link
     And I enter valid login credentials
     And I click the login button
-    Then I should see my account dashboard
+    Then I should see the login success dashboard
 
   Scenario: Failed login with invalid credentials
     When I click on the "Sign In" link

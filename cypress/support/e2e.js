@@ -24,6 +24,9 @@ Cypress.on('uncaught:exception', (err) => {
     'replaceAll',              // undefined
     'postMessage',             // windows
     'Cannot read properties',  // undefined/null
+    'AddFotoramaVideoEvents',  // Nuevo: Error de Fotorama
+    '$ is not defined',        // jQuery no cargado
+    'jQuery is not defined'    // jQuery no cargado
   ];
   if (ignoredErrors.some(error => err.message.includes(error))) {
     console.log('Error ignorado:', err.message); // Opcional: para debug

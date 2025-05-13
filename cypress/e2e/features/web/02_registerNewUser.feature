@@ -10,5 +10,5 @@ Feature: User Registration
     When I click on the "Create an Account" link
     And I fill in the registration form with valid details
     And I submit the registration form
-    Then I should be registered and logged in
+    Then I should see the registration success dashboard
     And I should see my account dashboard

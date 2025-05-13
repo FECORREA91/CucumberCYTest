@@ -13,10 +13,10 @@ When('I submit the registration form', () => {
   registrationPage.submitRegistrationForm();
 });
 
-Then('I should be registered and logged in', () => {
-  registrationPage.elements.successMessage().should('be.visible');
+Then('I should see the registration success dashboard', () => {
+  registrationPage.elements.accountDashboard().should('be.visible');
 });
 
 Then('I should see my account dashboard', () => {
-  registrationPage.elements.accountDashboard().should('be.visible');
+  registrationPage.elements.successMessage().should('be.visible');
 });

@@ -38,8 +38,7 @@ class LoginPage {
   }
 
   verifyAccount( expectedName ='Welcome, Fabian Correa!') {
-  this.elements.loggedin().should('contain.text', expectedName);
-  return this;
+  return this.elements.loggedin().should('contain.text', expectedName);
   }
 }
 

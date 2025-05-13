@@ -1,0 +1,11 @@
+npm install @bahmutov/cypress-esbuild-preprocessor --save-dev
+npm install -D cypress-xpath
+npm init
+npx cypress open
+
+Reporte
+npm install --save-dev cucumber-html-reporter multiple-cucumber-html-reporter
+
+Ejecucion
+npm run test:report
+
