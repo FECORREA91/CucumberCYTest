@@ -1,0 +1,36 @@
+# Node modules
+node_modules/
+
+# Cypress generated files
+cypress/screenshots/
+cypress/videos/
+cypress/results/
+cypress/downloads/
+
+# Coverage reports
+coverage/
+
+# Logs
+*.log
+
+# Cucumber related
+*.json
+*.xml
+*.yml
+
+# Config files (si tienes archivos específicos de tu entorno)
+cypress.json
+cypress.env.json
+
+# Dependencias de Cypress si usas algún tipo de caché
+.cypress
+
+# Archivos temporales
+*.tmp
+*.swp
+
+# IDE y editor (si no usas configuraciones globales)
+.idea/
+.vscode/
+*.sublime-workspace
+*.sublime-project
