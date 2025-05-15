@@ -7,12 +7,12 @@ class LoginPage {
   }
 
   elements = {
-    signInLink: () => cy.get("div[class='panel header'] li[data-label='or'] a"),
+    signInLink: () => cy.contains('a', 'Sign In').eq(0),
     emailInput: () => cy.get('#email'),
     passwordInput: () => cy.get('#pass'),
     loginButton: () => cy.get('#send2'),
-    errorMessage: () => cy.xpath("//div[@class='message-error error message']"),
-    loggedin: () =>cy.xpath("//div[@class='panel header']//li[@class='greet welcome']"),
+    errorMessage: () => cy.get('div[data-bind="html: $parent.prepareMessageForHtml(message.text)"]'),
+    loggedin: () =>cy.contains('span', 'Welcome, Fabian Correa!').eq(0),
     accountDashboard: () => cy.get("div[class='panel header'] span[class='logged-in']")
   };
 

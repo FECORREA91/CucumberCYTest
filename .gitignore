@@ -13,7 +13,7 @@ cypress/fixtures/example.json
 # Reportes de pruebas (conserva solo los formatos fuente)
 cypress/reports/cucumber-json/ # Mantener los JSON si necesitas regenerar reportes
 cypress/reports/cucumber-html/ # Eliminar el HTML generado (se puede reconstruir)
-cypress/reports/mochareports/ # Si usas Mochawesome
+cypress/reports/Mochawesome/ # Si usas Mochawesome
 cypress/results/
 
 # Cubrimiento de código
