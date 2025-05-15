@@ -12,10 +12,16 @@
 // You can read more here:
 // https://on.cypress.io/configuration
 // ***********************************************************
-
+// Report Cypress
+import 'cypress-mochawesome-reporter/register';
 // Import commands.js using ES2015 syntax:
 import './commands'
 require('cypress-xpath');
+// Extensión alternativa segura
+if (typeof cy.xpath === 'undefined') {
+  const xpath = require('cypress-xpath');
+  Cypress.Commands.add('xpath', { prevSubject: ['optional', 'element', 'document'] }, xpath);
+}
 
 //  Global error handling
 Cypress.on('uncaught:exception', (err) => {
@@ -33,4 +39,12 @@ Cypress.on('uncaught:exception', (err) => {
     return false;
   }
   return true;
+});
+
+// Device
+before(() => {
+  const deviceName = Cypress.env('deviceProfile');
+  if (deviceName) {
+    cy.log(`Ejecutando pruebas en dispositivo: ${deviceName}`);
+  }
 });

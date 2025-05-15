@@ -1,32 +1,39 @@
 {
-  "name": "cucumbercytest",
+  "name": "cypresstest",
   "version": "1.0.0",
-  "description": "Test cucumber cy js",
+  "description": "Test Cypress con Cucumber y Mochawesome",
   "main": "cypress.config.js",
   "scripts": {
     "test": "cypress run",
-    "report": "node generate-report.js",
-    "test:report": "npm run test && npm run report"
+    "test:chrome": "cypress run --browser chrome",
+    "test:debug": "DEBUG=@badeball/cypress-cucumber-preprocessor* cypress run",
+     "test:parallel": "cypress run --env split=true --spec cypress/e2e/**/*.feature --parallel --ci-build-id $npm_package_version",
+    
+
+    "test:iphone": "cypress run --env deviceProfile=iphone13",
+    "test:android": "cypress run --env deviceProfile=galaxyS21",
+    "test:desktop": "cypress run --env deviceProfile=desktop",
+    "test:devices": "npm run test:iphone & npm run test:android & npm run test:desktop",
+    
+
+    "test:all": "npm run test:parallel && npm run test:devices",
+    "test:ci": "npm run test:all -- --browser chrome --headless",
+    
+    "report": "npx cypress-mochawesome-reporter",
+    "report:clean": "rm -rf cypress/reports cypress/screenshots cypress/videos cypress/mochawesome-report",
+    "report:open": "npx open-cli cypress/reports/mochawesome/index.html",
+    
+    "clean": "npm run report:clean",
+    "posttest": "npm run report"
+    
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/FECORREA91/CucumberCYTest.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/FECORREA91/CucumberCYTest/issues"
-  },
-  "homepage": "https://github.com/FECORREA91/CucumberCYTest#readme",
   "devDependencies": {
     "@badeball/cypress-cucumber-preprocessor": "^22.0.1",
-    "@bahmutov/cypress-esbuild-preprocessor": "^2.2.4",
-    "cucumber-html-reporter": "^7.2.0",
+    "@bahmutov/cypress-esbuild-preprocessor": "^2.2.5",
     "cypress": "^14.3.3",
-    "cypress-multi-reporters": "^2.0.5",
+    "cypress-mochawesome-reporter": "^3.8.2",
+    "cypress-split": "^1.24.17", 
     "cypress-xpath": "^2.0.1",
-    "mochawesome": "^7.1.3",
-    "mochawesome-merge": "^5.0.0",
-    "multiple-cucumber-html-reporter": "^3.9.2"
+    "open-cli": "^8.0.0"
   }
 }

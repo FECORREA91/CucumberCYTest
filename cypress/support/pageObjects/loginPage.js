@@ -7,7 +7,7 @@ class LoginPage {
   }
 
   elements = {
-    signInLink: () => cy.xpath("//div[@class='panel header']//a[contains(text(),'Sign In')]"),
+    signInLink: () => cy.get("div[class='panel header'] li[data-label='or'] a"),
     emailInput: () => cy.get('#email'),
     passwordInput: () => cy.get('#pass'),
     loginButton: () => cy.get('#send2'),
@@ -22,7 +22,7 @@ class LoginPage {
   }
 
   clickSignInLink() {
-    this.elements.signInLink().click();
+    this.elements.signInLink().should('be.visible').click({ force: true });
     return this;
   }
 

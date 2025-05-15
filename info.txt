@@ -2,10 +2,19 @@ npm install @bahmutov/cypress-esbuild-preprocessor --save-dev
 npm install -D cypress-xpath
 npm init
 npx cypress open
+npx cypress run
 
 Reporte
 npm install --save-dev cucumber-html-reporter multiple-cucumber-html-reporter
 
 Ejecucion
-npm run test:report
+npm install
+npm run test
+npm run report:mocha
 
+npm run report:cucumber && npm run report:mocha
+
+
+npm cache clean --force   
+
+npm run test:devices

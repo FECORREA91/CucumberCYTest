@@ -62,7 +62,7 @@ class ProductPage {
 
   proceedToCheckout() {
     this.elements.miniCart().click();
-    this.elements.proceedToCheckoutButton().click();
+    this.elements.proceedToCheckoutButton().should('be.visible').click({force: true});
     this.elements.newAddress().then($btn => {
       if ($btn.length > 0) {
         this.elements.newAddress().click();
@@ -150,7 +150,7 @@ _ensureModalClosed() {
   }
 
   placeOrder() {
-    this.elements.placeOrderButton().click();
+    this.elements.placeOrderButton().should('be.visible').click({force: true});
     return this;
   }
 
