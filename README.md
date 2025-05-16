@@ -32,9 +32,9 @@ Separates test logic from UI interactions, reducing duplication.
 
 🚀 Project Setup
 
-Clone the Repository:
+Clone the Repository: 
 
-git clone <repository-url>
+git clone https://github.com/FECORREA91/CucumberCYTest.git
 cd <project-directory>
 
 Initialize the Project:
