@@ -1,10 +1,12 @@
+const path = require('path'); 
+const fs = require('fs');
 const { defineConfig } = require("cypress");
 const cypressSplit = require('cypress-split');
 const createBundler = require("@bahmutov/cypress-esbuild-preprocessor");
 const createEsbuildPlugin = require("@badeball/cypress-cucumber-preprocessor/esbuild").default;
 const addCucumberPreprocessorPlugin = require("@badeball/cypress-cucumber-preprocessor").addCucumberPreprocessorPlugin;
 
-// Configuraciones mejoradas de dispositivos móviles
+// Configuraciones de dispositivos móviles
 const mobileDevices = {
   // iOS
   iphone13: {
@@ -36,17 +38,27 @@ const mobileDevices = {
   }
 };
 
+// VERIFICACIÓN DE PATHS ANTES DE LA CONFIGURACIÓN
+const featuresPaths = [
+  path.join(__dirname, "cypress/e2e/features/web"),
+  path.join(__dirname, "cypress/e2e/features/mobile")
+];
+
+featuresPaths.forEach(featurePath => {
+  if (!fs.existsSync(featurePath)) {
+    throw new Error(`Directory not found: ${featurePath}`);
+  }
+});
+
 module.exports = defineConfig({
   e2e: {
-    specPattern: "cypress/e2e/**/*.feature",
-    supportFile: "cypress/support/e2e.js",
-    video: false,
-    experimentalRunAllSpecs: true, // Permite ejecutar todos los specs
+    // Configuración simplificada de specPattern
+    specPattern: "cypress/e2e/features/**/*.feature",
     
-    // Configuración de reporter (Mochawesome)
+    // Configuración del reporter
     reporter: 'cypress-mochawesome-reporter',
     reporterOptions: {
-      reportDir: 'cypress/reports/mochawesome',
+      reportDir: path.join(__dirname, "cypress/reports/mochawesome"),
       charts: true,
       reportPageTitle: 'Test Report - Magento',
       embeddedScreenshots: true,
@@ -58,56 +70,66 @@ module.exports = defineConfig({
     env: {
       mobileDevices: JSON.stringify(mobileDevices),
       defaultDevice: 'desktop',
-      deviceProfile: 'desktop'
+      deviceProfile: 'desktop',
+      testType: 'web'
     },
 
     setupNodeEvents(on, config) {
-      // 1. Configurar paralelismo
+      // Configuración de plugins
       cypressSplit(on, config);
-      
-      // 2. Configurar Mochawesome
       require('cypress-mochawesome-reporter/plugin')(on);
-      
-      // 3. Configurar preprocesador de Cucumber
-      addCucumberPreprocessorPlugin(on, config, {
-        omitAfterRunHandler: true,
-        omitBeforeRunHandler: true
-      });
+      addCucumberPreprocessorPlugin(on, config);
       
       on("file:preprocessor", createBundler({
         plugins: [createEsbuildPlugin(config)],
       }));
 
-      // 4. Configuración dinámica para dispositivos
+      // Configuración dinámica mejorada
       const deviceName = config.env.deviceProfile || config.env.defaultDevice;
       const devices = JSON.parse(config.env.mobileDevices);
       const device = devices[deviceName] || devices.desktop;
 
-      // Aplicar configuración del dispositivo seleccionado
-      config.viewportWidth = device.viewportWidth;
-      config.viewportHeight = device.viewportHeight;
-      config.userAgent = device.userAgent;
-      config.isMobile = device.isMobile;
-      
-      // 5. Comando para cambiar dispositivo durante la ejecución
+      // Aplica configuración basada en el tipo de prueba
+      if (config.env.testType === 'mobile') {
+        config.viewportWidth = device.viewportWidth;
+        config.viewportHeight = device.viewportHeight;
+        config.userAgent = device.userAgent;
+        config.isMobile = device.isMobile;
+        config.chromeWebSecurity = false; // Importante para mobile
+      } else {
+        config.viewportWidth = devices.desktop.viewportWidth;
+        config.viewportHeight = devices.desktop.viewportHeight;
+        config.userAgent = devices.desktop.userAgent;
+        config.isMobile = false;
+      }
+
+      // Tasks para cambiar entre modos
       on('task', {
         setMobileDevice: (deviceName) => {
           const targetDevice = devices[deviceName];
           if (targetDevice) {
-            config.viewportWidth = targetDevice.viewportWidth;
-            config.viewportHeight = targetDevice.viewportHeight;
-            config.userAgent = targetDevice.userAgent;
-            config.isMobile = targetDevice.isMobile;
-            return `Dispositivo configurado: ${targetDevice.name}`;
+            config.env.testType = 'mobile';
+            config.env.deviceProfile = deviceName;
+            return `Modo móvil configurado: ${targetDevice.name}`;
           }
           throw new Error(`Dispositivo no soportado: ${deviceName}`);
         },
-        // Task para obtener dispositivo actual
-        getCurrentDevice: () => {
+        setWebMode: () => {
+          config.env.testType = 'web';
+          return 'Modo web configurado';
+        },
+        getCurrentConfig: () => {
           return {
-            name: deviceName,
-            ...device
+            viewportWidth: config.viewportWidth,
+            viewportHeight: config.viewportHeight,
+            userAgent: config.userAgent,
+            isMobile: config.isMobile
           };
+        },
+        // Nuevo task para verificar paths durante la ejecución
+        verifyMobilePaths: () => {
+          const mobilePath = path.join(__dirname, "cypress/e2e/features/mobile");
+          return fs.existsSync(mobilePath);
         }
       });
 

@@ -1,3 +1,4 @@
+@desktop
 Feature: User Registration
   As a new customer
   I want to register on the Magento website

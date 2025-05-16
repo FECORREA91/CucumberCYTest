@@ -4,8 +4,6 @@ npm init
 npx cypress open
 npx cypress run
 
-Reporte
-npm install --save-dev cucumber-html-reporter multiple-cucumber-html-reporter
 
 Ejecucion
 npm install

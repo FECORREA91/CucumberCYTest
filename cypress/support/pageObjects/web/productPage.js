@@ -1,21 +1,21 @@
 class ProductPage {
   elements = {
-    menCategoryLink: () => cy.xpath("//*[@id='ui-id-5']"),
-    categoryClothes: () => cy.xpath("//a[contains(text(),'Hoodies & Sweatshirts')]"),
+    menCategoryLink: () => cy.contains('span', 'Men'),
+    categoryClothes: () => cy.get('div.categories-menu a').eq(0),
     productItem: (productName) => cy.xpath(`//a[normalize-space()='${productName}']`),
     sizeOption: (size) => cy.xpath(`//div[@option-label='${size}']`),
     colorOption: (color) => cy.xpath(`//div[@option-label='${color}']`),
-    quantityInput: () => cy.xpath("//input[@id='qty']"),
-    addToCartButton: () => cy.xpath("//button[@id='product-addtocart-button']"),
-    cartCounter: () => cy.xpath("//span[@class='counter-number']"),
-    miniCart: () => cy.xpath("//a[@class='action showcart']"),
-    proceedToCheckoutButton: () => cy.xpath("//button[@id='top-cart-btn-checkout']"),
+    quantityInput: () => cy.get('#qty'),
+    addToCartButton: () => cy.get('#product-addtocart-button'),
+    cartCounter: () => cy.get("a[data-bind='scope: 'minicart_content'']"),
+    miniCart: () => cy.get('body > div.page-wrapper > header > div.header.content > div.minicart-wrapper > a'),
+    proceedToCheckoutButton: () => cy.get('#top-cart-btn-checkout'),
     checkoutPageTitle: () => cy.get('.page-title').contains('Checkout'),
  
 
-    addressModal: () => cy.xpath("(//div[contains(@class,'modal-inner-wrap')])[4]"),
-    newAddress: ()=> cy.xpath("//button[@class='action action-show-popup']"),
-    shippingAddress: ()=> cy.xpath("//button[@class='action primary action-save-address']"),
+    addressModal: () => cy.get('#L3YLW4D'),
+    newAddress: ()=> cy.contains('span', 'New Address'),
+    shippingAddress: ()=> cy.get('button.action-save-address'),
 
     companyField: () => cy.get('input[name="company"]'),
     addressField: () => cy.get('input[name="street[0]"]'),
@@ -23,9 +23,9 @@ class ProductPage {
     stateField: () => cy.get('select[name="region_id"]'),
     zipField: () => cy.get('input[name="postcode"]'),
     phoneField: () => cy.get('input[name="telephone"]'),
-    nextButton: () => cy.xpath("//span[normalize-space()='Next']"),
-    placeOrderButton: () => cy.xpath("//span[normalize-space()='Place Order']"),
-    orderSuccessMessage: () => cy.xpath("//span[contains(text(),'Thank you for your purchase!')]"),
+    nextButton: () => cy.get('button[data-role="opc-continue"]'),
+    placeOrderButton: () => cy.get('#checkout-payment-method-load > div > div > div.payment-method._active > div.payment-method-content > div.actions-toolbar > div > button'),
+    orderSuccessMessage: () => cy.get("#maincontent > div.page-title-wrapper > h1 > span"),
     orderNumber: () => cy.get(".order-number")
   };
 

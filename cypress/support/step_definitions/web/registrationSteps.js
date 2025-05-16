@@ -1,5 +1,5 @@
 const { Given, When, Then } = require("@badeball/cypress-cucumber-preprocessor");
-const registrationPage = require("../pageObjects/registrationPage").default; 
+const registrationPage = require("../pageObjects/web/registrationPage").default; 
 
 When('I click on the "Create an Account" link', () => {
   registrationPage.clickCreateAccountLink();

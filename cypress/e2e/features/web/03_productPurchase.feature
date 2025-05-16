@@ -1,3 +1,4 @@
+@desktop
 Feature: Product Purchase
   As a logged in user
   I want to purchase a product

@@ -1,6 +1,6 @@
 const { Given } = require("@badeball/cypress-cucumber-preprocessor");
-const LoginPage = require("../../support/pageObjects/loginPage").default;
-const ProductPage=require("../../support/pageObjects/productPage").default;
+const LoginPage = require("../../support/pageObjects/web/loginPage").default;
+const ProductPage=require("../../support/pageObjects/web/productPage").default;
 
 Given("I navigate to the Magento homepage", () => {
   LoginPage.navigate();
