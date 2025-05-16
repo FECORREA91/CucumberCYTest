@@ -1,58 +1,62 @@
-Cypress POM Project with Cucumber and JavaScript
+# Cypress POM Project with Cucumber and JavaScript
 
-This project is a test automation suite built with Cypress, Cucumber, and JavaScript, following the Page Object Model (POM) architecture for better code organization and maintenance. The project targets the Magento demo site: Magento Testing Board.
+This project is a test automation suite built with **Cypress**, **Cucumber**, and **JavaScript**, following the **Page Object Model (POM)** architecture for better code organization and maintenance. The project targets the Magento demo site: [Magento Testing Board](https://magento.softwaretestingboard.com).
 
-📋 Why Use These Technologies?
+## 📋 Why Use These Technologies?
 
-Cypress
+### **Cypress**
 
-Fast, reliable, and easy to set up.
+* Fast, reliable, and easy to set up.
+* Provides real-time reloading and interactive debugging.
+* Rich set of built-in commands for browser automation.
 
-Provides real-time reloading and interactive debugging.
+### **Cucumber (Gherkin)**
 
-Rich set of built-in commands for browser automation.
+* Enables Behavior-Driven Development (BDD) with human-readable test scenarios.
+* Facilitates collaboration between technical and non-technical team members.
 
-Cucumber (Gherkin)
+### **JavaScript**
 
-Enables Behavior-Driven Development (BDD) with human-readable test scenarios.
+* Widely used language with a vast ecosystem.
+* Easily integrates with frontend technologies.
 
-Facilitates collaboration between technical and non-technical team members.
+### **Page Object Model (POM)**
 
-JavaScript
+* Encourages code reusability and maintainability.
+* Separates test logic from UI interactions, reducing duplication.
 
-Widely used language with a vast ecosystem.
+## 🚀 Project Setup
 
-Easily integrates with frontend technologies.
+1. **Clone the Repository:**
 
-Page Object Model (POM)
+   ```bash
+   git clone <repository-url>
+   cd <project-directory>
+   ```
 
-Encourages code reusability and maintainability.
+2. **Initialize the Project:**
 
-Separates test logic from UI interactions, reducing duplication.
+   ```bash
+   npm init -y
+   ```
 
-🚀 Project Setup
+3. **Install Cypress:**
 
-Clone the Repository: 
+   ```bash
+   npm install cypress --save-dev
+   ```
 
-git clone https://github.com/FECORREA91/CucumberCYTest.git
-cd <project-directory>
+4. **Install Cucumber and Other Dependencies:**
 
-Initialize the Project:
+   ```bash
+   npm install @bahmutov/cypress-esbuild-preprocessor --save-dev
+   npm install cypress-xpath --save-dev
+   npm install -g npx
+   ```
 
-npm init -y
+## 🏗️ Project Structure
 
-Install Cypress:
-
-npm install cypress --save-dev
-
-Install Cucumber and Other Dependencies:
-
-npm install @bahmutov/cypress-esbuild-preprocessor --save-dev
-npm install cypress-xpath --save-dev
-npm install -g npx
-
-🏗️ Project Structure
-
+```
 📂 cypress-project
 ├── 📁 cypress
 │   ├── 📁 e2e
@@ -66,43 +70,47 @@ npm install -g npx
 │   └── sampleSteps.js
 ├── cypress.config.js
 └── package.json
+```
 
-📂 Run the Tests
+## 📂 Run the Tests
 
-Open Cypress Test Runner:
+1. **Open Cypress Test Runner:**
 
-npx cypress open
+   ```bash
+   npx cypress open
+   ```
 
-Run All Tests (Headless):
+2. **Run All Tests (Headless):**
 
-npm run test:all
+   ```bash
+   npm run test:all
+   ```
 
-Generate Report:
+3. **Generate Report:**
 
-npm run report:mocha
+   ```bash
+   npm run report:mocha
+   ```
 
-📊 Test Reports
+## 📊 Test Reports
 
-Integrated with Mochawesome for rich, interactive HTML reports.
+* Integrated with **Mochawesome** for rich, interactive HTML reports.
 
-🔧 Additional Tools and Plugins
+## 🔧 Additional Tools and Plugins
 
-cypress-xpath: For XPath selector support.
+* **cypress-xpath**: For XPath selector support.
+* **cypress-esbuild-preprocessor**: For efficient JavaScript bundling.
 
-cypress-esbuild-preprocessor: For efficient JavaScript bundling.
+## 📚 Resources
 
-📚 Resources
+* [Cypress Documentation](https://docs.cypress.io/)
+* [Cucumber Gherkin Reference](https://cucumber.io/docs/gherkin/)
+* [Magento Demo](https://magento.softwaretestingboard.com)
 
-Cypress Documentation
-
-Cucumber Gherkin Reference
-
-Magento Demo
-
-🤝 Contributing
+## 🤝 Contributing
 
 Feel free to contribute to this project by submitting pull requests or opening issues.
 
-📄 License
+## 📄 License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
