@@ -30,14 +30,13 @@ This project is a test automation suite built with **Cypress**, **Cucumber**, an
 1. **Clone the Repository:**
 
    ```bash
-   git clone <repository-url>
-   cd <project-directory>
+   git clone https://github.com/FECORREA91/CucumberCYTest.git
    ```
 
 2. **Initialize the Project:**
 
    ```bash
-   npm init -y
+   npm init
    ```
 
 3. **Install Cypress:**
@@ -61,14 +60,46 @@ This project is a test automation suite built with **Cypress**, **Cucumber**, an
 ├── 📁 cypress
 │   ├── 📁 e2e
 │   │   └── 📁 features
-│   │       └── sample.feature
+│   │       ├── 📁 mobile
+│   │       │   ├── 01_mobileUserLogin.feature
+│   │       │   ├── 02_mobileProductPurchase.feature
+│   │       │   └── 03_mobileUserRegistration.feature
+│   │       └── 📁 web
+│   │           ├── 01_userLogin.feature
+│   │           ├── 02_registerNewUser.feature
+│   │           └── 03_productPurchase.feature
+│   ├── 📁 reports
+│   │   └── 📁 mochawesome
+│   ├── 📁 screenshots
+│   │   ├── 01_userLogin.feature
+│   │   ├── 02_registerNewUser.feature
+│   │   └── 03_productPurchase.feature
 │   └── 📁 support
-│       └── commands.js
-├── 📁 page_objects
-│   └── samplePage.js
-├── 📁 step_definitions
-│   └── sampleSteps.js
+│       ├── 📁 pageObjects
+│       │   ├── 📁 mobile
+│       │   │   ├── mobileLoginPage.js
+│       │   │   ├── mobileProductPage.js
+│       │   │   └── mobileRegistrationPage.js
+│       │   └── 📁 web
+│       │       ├── loginPage.js
+│       │       ├── productPage.js
+│       │       └── registrationPage.js
+│       └── 📁 step_definitions
+│           ├── 📁 mobile
+│           │   ├── mobileCommonSteps.js
+│           │   ├── mobileLoginSteps.js
+│           │   ├── mobileProductSteps.js
+│           │   └── mobileRegistrationSteps.js
+│           └── 📁 web
+│               ├── commonSteps.js
+│               ├── loginSteps.js
+│               ├── productSteps.js
+│               └── registrationSteps.js
 ├── cypress.config.js
+├── e2e.js
+├── .gitignore
+├── runner-results
+├── info.txt
 └── package.json
 ```
 
