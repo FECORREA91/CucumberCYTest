@@ -24,7 +24,7 @@ class ProductPage {
     zipField: () => cy.get('input[name="postcode"]'),
     phoneField: () => cy.get('input[name="telephone"]'),
     nextButton: () => cy.get('button[data-role="opc-continue"]'),
-    placeOrderButton: () => cy.get('#checkout-payment-method-load > div > div > div.payment-method._active > div.payment-method-content > div.actions-toolbar > div > button'),
+    placeOrderButton: () => cy.xpath("//button[@title='Place Order']"),
     orderSuccessMessage: () => cy.get("#maincontent > div.page-title-wrapper > h1 > span"),
     orderNumber: () => cy.get(".order-number")
   };

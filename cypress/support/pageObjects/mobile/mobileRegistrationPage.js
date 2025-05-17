@@ -4,17 +4,17 @@ class MobileRegistrationPage {
   }
 
   elements = {
-    mobileMenuButton: () => cy.get('.nav-toggle'),
-    mobileAccountbutton: () => cy.xpath("//a[normalize-space()='Account']"),
-    mobileCreateAccountOption: () => cy.xpath("//div[@id='store.links']//a[normalize-space()='Create an Account']"),
-    firstNameInput: () => cy.get('#firstname'),
-    lastNameInput: () => cy.get('#lastname'),
-    emailInput: () => cy.get('#email_address'),
-    passwordInput: () => cy.get('#password'),
-    confirmPasswordInput: () => cy.get('#password-confirmation'),
-    createAccountButton: () => cy.contains('button', 'Create an Account').first(),
-    successMessage: () => cy.contains('div', 'Thank you for registering').first(),
-    accountDashboard: () => cy.get('.customer-menu').first()
+    mobileMenuButton: () => cy.get('.nav-toggle').first(),
+    mobileAccountbutton: () => cy.xpath("//a[normalize-space()='Account']").first(),
+    mobileCreateAccountOption: () => cy.xpath("//div[@id='store.links']//a[normalize-space()='Create an Account']").first(),
+    firstNameInput: () => cy.xpath("//input[@id='firstname']").first(),
+    lastNameInput: () => cy.xpath("//input[@id='lastname']").first(),
+    emailInput: () => cy.xpath("//input[@id='email_address']").first(),
+    passwordInput: () => cy.xpath("//input[@id='password']").first(),
+    confirmPasswordInput: () => cy.xpath("//input[@id='password-confirmation']").first(),
+    createAccountButton: () => cy.xpath("//button[@title='Create an Account']").first(),
+    successMessage: () => cy.xpath("//div[contains(.,'Thank you for registering')]").first(),
+    accountDashboard: () => cy.xpath("//div[@class='customer-menu']").first()
   };
 
   navigate() {
@@ -32,14 +32,29 @@ class MobileRegistrationPage {
     return this.currentCredentials;
   }
 
-  openMobileMenu() {
-    this.elements.mobileMenuButton().click();
+ openMobileMenu() {
+    this.elements.mobileMenuButton()
+      .should('be.visible')
+      .scrollIntoView({ 
+        offset: { top: -50, left: 0 },
+        duration: 500
+      })
+      .click({ force: true });
     return this;
   }
 
   tapCreateAccountOption() {
-    this.elements.mobileAccountbutton().click();
-    this.elements.mobileCreateAccountOption().click();
+    this.elements.mobileAccountbutton()
+      .should('be.visible')
+      .scrollIntoView()
+      .click({ force: true });
+    
+    cy.wait(500);
+    
+    this.elements.mobileCreateAccountOption()
+      .should('be.visible')
+      .click({ force: true });
+    
     return this;
   }
 
@@ -48,16 +63,36 @@ class MobileRegistrationPage {
       this.generateCredentials();
     }
 
-    this.elements.firstNameInput().type('Mobile');
-    this.elements.lastNameInput().type('User');
-    this.elements.emailInput().type(this.currentCredentials.email);
-    this.elements.passwordInput().type(this.currentCredentials.password);
-    this.elements.confirmPasswordInput().type(this.currentCredentials.password);
+    this.elements.firstNameInput()
+      .should('be.visible')
+      .type('Mobile');
+    
+    this.elements.lastNameInput()
+      .should('be.visible')
+      .type('User');
+    
+    this.elements.emailInput()
+      .should('be.visible')
+      .type(this.currentCredentials.email);
+    
+    this.elements.passwordInput()
+      .should('be.visible')
+      .type(this.currentCredentials.password);
+    
+    this.elements.confirmPasswordInput()
+      .should('be.visible')
+      .type(this.currentCredentials.password);
+    
     return this;
   }
 
   submitMobileRegistrationForm() {
-    this.elements.createAccountButton().click();
+    this.elements.createAccountButton()
+      .should('be.visible')
+      .and('not.be.disabled')
+      .click();
+    
+    cy.url().should('include', 'customer/account'); // Verifica redirección
     return this;
   }
 }

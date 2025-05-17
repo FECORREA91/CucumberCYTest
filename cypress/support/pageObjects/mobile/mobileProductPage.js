@@ -1,16 +1,16 @@
 class MobileProductPage {
   elements = {
-    mobileMenuButton: () => cy.get('.nav-toggle'),
-    mobileMenuCategory: () => cy.xpath("//a[@id='ui-id-5']"),
-    mobileMenuProduct: () => cy.xpath("//a[@id='ui-id-19']//span[contains(text(),'Jackets')]"),
-    productItem: () => cy.xpath("//a[normalize-space()='Montana Wind Jacket']"),
-    sizeOption: () => cy.xpath("//div[@id='option-label-size-143-item-170']"),
-    colorOption: () => cy.xpath("//div[@id='option-label-color-93-item-58']"),
-    quantityInput: () => cy.get('#qty'),
+    mobileMenuButton: () => cy.get('.nav-toggle').first(),
+    mobileMenuCategory: () => cy.xpath("//a[@id='ui-id-5']").first(),
+    mobileMenuProduct: () => cy.xpath("//a[@id='ui-id-19']//span[contains(text(),'Jackets')]").first(),
+    productItem: () => cy.xpath("//a[normalize-space()='Montana Wind Jacket']").first(),
+    sizeOption: () => cy.xpath("//div[@id='option-label-size-143-item-170']").first(),
+    colorOption: () => cy.xpath("//div[@id='option-label-color-93-item-58']").first(),
+    quantityInput: () => cy.get('#qty').first(),
     addToCartButton: () => cy.contains('button', 'Add to Cart').first(),
-    cartIcon: () => cy.get('.showcart'),
-    proceedToCheckoutButton: () => cy.contains('button', 'Proceed to Checkout').first(),
-    checkoutPageTitle: () => cy.contains('h1', 'Checkout'),
+    cartIcon: () => cy.get('.showcart').first(),
+    proceedToCheckoutButton: () => cy.xpath("//button[@id='top-cart-btn-checkout']").first(),
+    checkoutPageTitle: () => cy.contains('h1', 'Checkout').first(),
     nextButton: () => cy.contains('button', 'Next').first(),
     placeOrderButton: () => cy.xpath("//button[@title='Place Order']"),
     orderSuccessMessage: () => cy.contains('span', 'Thank you for your purchase!'),
@@ -18,7 +18,13 @@ class MobileProductPage {
   };
 
   openMobileMenu() {
-    this.elements.mobileMenuButton().click({force: true});
+    this.elements.mobileMenuButton()
+      .should('be.visible')
+      .scrollIntoView({ 
+        offset: { top: -50, left: 0 }, // Ajusta para headers fijos
+        duration: 500 // Scroll suave
+      })
+      .click({ force: true });
     return this;
   }
 

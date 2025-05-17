@@ -7,15 +7,15 @@ class MobileLoginPage {
   }
 
   elements = {
-    mobileMenuButton: () => cy.get('.nav-toggle'),
-    mobileAccountbutton: () => cy.xpath("//a[normalize-space()='Account']"),
-    mobileSignInOption: () => cy.xpath("//div[@id='store.links']//a[contains(text(),'Sign In')]"),
-    emailInput: () => cy.get('#email'),
-    passwordInput: () => cy.get('#pass'),
-    loginButton: () => cy.get('#send2'),
+    mobileMenuButton: () => cy.get('.nav-toggle').first(),
+    mobileAccountbutton: () => cy.xpath("//a[normalize-space()='Account']").first(),
+    mobileSignInOption: () => cy.xpath("//div[@id='store.links']//a[contains(text(),'Sign In')]").first(),
+    emailInput: () => cy.get('#email').first(),
+    passwordInput: () => cy.get('#pass').first(),
+    loginButton: () => cy.get('#send2').first(),
     errorMessage: () => cy.get('.message-error').first(),
-    successMessage: () => cy.get('div.message'),
-    accountDashboard: () => cy.xpath("//div[@class='message-error error message']")
+    successMessage: () => cy.get('div.message').first(),
+    accountDashboard: () => cy.xpath("//div[@class='message-error error message']").first()
   };
 
   navigate() {
@@ -25,13 +25,19 @@ class MobileLoginPage {
   }
 
   openMobileMenu() {
-    this.elements.mobileMenuButton().click();
+    this.elements.mobileMenuButton()
+      .should('be.visible')
+      .scrollIntoView({ 
+        offset: { top: -50, left: 0 },
+        duration: 500
+      })
+      .click({ force: true });
     return this;
   }
 
   tapSignInOption() {
-    this.elements.mobileAccountbutton().click();
-    this.elements.mobileSignInOption().click();
+    this.elements.mobileAccountbutton().should('be.visible').click();
+    this.elements.mobileSignInOption().should('be.visible').click();
     return this;
   }
 
