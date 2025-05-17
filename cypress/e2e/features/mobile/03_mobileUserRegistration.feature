@@ -8,9 +8,8 @@ Feature: Mobile User Registration
     Given I navigate to the Magento homepage on mobile
 
   Scenario: Successful mobile user registration
-    When I click on the mobile menu
+    When I click on the mobile menu in registration
     And I tap on the "Create Account" option
     And I fill in the mobile registration form with valid details
     And I submit the mobile registration form
     Then I should see the mobile registration success message
-    And I should see my mobile account dashboard

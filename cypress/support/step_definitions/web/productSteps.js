@@ -1,6 +1,6 @@
 
 const { Given, When, Then } = require("@badeball/cypress-cucumber-preprocessor");
-const productPage = require("../pageObjects/web/productPage").default; 
+const productPage = require("../../../support/pageObjects/web/productPage").default; 
 
 When('I navigate to the "Men" category', () => {
   productPage.navigateToMenCategory();

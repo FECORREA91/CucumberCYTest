@@ -1,7 +1,7 @@
 const { When, Then } = require("@badeball/cypress-cucumber-preprocessor");
-const MobileRegistrationPage = require("../pageObjects/mobile/mobileRegistrationPage").default;
+const MobileRegistrationPage = require("../../../support/pageObjects/mobile/mobileRegistrationPage").default;
 
-When('I click on the mobile menu', () => {
+When('I click on the mobile menu in registration', () => {
   MobileRegistrationPage.openMobileMenu();
 });
 

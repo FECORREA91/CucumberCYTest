@@ -1,5 +1,5 @@
 const { Given, When, Then } = require("@badeball/cypress-cucumber-preprocessor");
-const LoginPage = require("../pageObjects/web/loginPage").default;
+const LoginPage = require("../../../support/pageObjects/web/loginPage").default;
 
 When('I click on the "Sign In" link', () => {
   LoginPage.clickSignInLink();

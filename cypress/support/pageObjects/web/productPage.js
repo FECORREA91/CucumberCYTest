@@ -8,12 +8,12 @@ class ProductPage {
     quantityInput: () => cy.get('#qty'),
     addToCartButton: () => cy.get('#product-addtocart-button'),
     cartCounter: () => cy.get("a[data-bind='scope: 'minicart_content'']"),
-    miniCart: () => cy.get('body > div.page-wrapper > header > div.header.content > div.minicart-wrapper > a'),
+    miniCart: () => cy.xpath("//a[@class='action showcart']"),
     proceedToCheckoutButton: () => cy.get('#top-cart-btn-checkout'),
     checkoutPageTitle: () => cy.get('.page-title').contains('Checkout'),
  
 
-    addressModal: () => cy.get('#L3YLW4D'),
+    addressModal: () => cy.xpath("//div[@id='modal-content-12']"),
     newAddress: ()=> cy.contains('span', 'New Address'),
     shippingAddress: ()=> cy.get('button.action-save-address'),
 

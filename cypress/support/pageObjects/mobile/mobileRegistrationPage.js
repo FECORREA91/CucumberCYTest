@@ -4,9 +4,9 @@ class MobileRegistrationPage {
   }
 
   elements = {
-    mobileMenuButton: () => cy.get('button[data-action="toggle-nav"]'),
-    mobileAccountbutton: ()=>cy.get('div[aria-controls="store.menu"]'),
-    mobileCreateAccountOption: () => cy.get('a[href="#store.links"]'),
+    mobileMenuButton: () => cy.get('.nav-toggle'),
+    mobileAccountbutton: () => cy.xpath("//a[normalize-space()='Account']"),
+    mobileCreateAccountOption: () => cy.xpath("//div[@id='store.links']//a[normalize-space()='Create an Account']"),
     firstNameInput: () => cy.get('#firstname'),
     lastNameInput: () => cy.get('#lastname'),
     emailInput: () => cy.get('#email_address'),
@@ -38,7 +38,7 @@ class MobileRegistrationPage {
   }
 
   tapCreateAccountOption() {
-    this.elements.mobileCreateAccountOption().click();
+    this.elements.mobileAccountbutton().click();
     this.elements.mobileCreateAccountOption().click();
     return this;
   }

@@ -7,15 +7,15 @@ class MobileLoginPage {
   }
 
   elements = {
-    mobileMenuButton: () => cy.get('button[data-action="toggle-nav"]'),
-    mobileAccountbutton: ()=>cy.get('div[aria-controls="store.menu"]'),
-    mobileSignInOption: () => cy.get('a[href="#store.links"]'),
+    mobileMenuButton: () => cy.get('.nav-toggle'),
+    mobileAccountbutton: () => cy.xpath("//a[normalize-space()='Account']"),
+    mobileSignInOption: () => cy.xpath("//div[@id='store.links']//a[contains(text(),'Sign In')]"),
     emailInput: () => cy.get('#email'),
     passwordInput: () => cy.get('#pass'),
     loginButton: () => cy.get('#send2'),
     errorMessage: () => cy.get('.message-error').first(),
-    successMessage: () => cy.get('.greet.welcome').first(),
-    accountDashboard: () => cy.get('.customer-menu').first()
+    successMessage: () => cy.get('div.message'),
+    accountDashboard: () => cy.xpath("//div[@class='message-error error message']")
   };
 
   navigate() {
@@ -48,6 +48,11 @@ class MobileLoginPage {
 
   verifyMobileLoginSuccess() {
     this.elements.successMessage().should('be.visible');
+    return this;
+  }
+
+  verifyNotLoggedIn() {
+    this.elements.accountDashboard().should('not.exist');
     return this;
   }
 }

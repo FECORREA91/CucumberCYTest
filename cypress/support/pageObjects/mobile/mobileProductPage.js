@@ -1,47 +1,77 @@
 class MobileProductPage {
   elements = {
-    // Selectores originales conservados
-    mobileMenuButton: () => cy.get('button[data-action="toggle-nav"]'),
-    mobileMenuCategory: () => cy.get('#ui-id-5'), // Men category
-    jacketsProduct: () => cy.get('#ui-id-19'), // Jackets subcategory
-    productItem1: () => cy.get('#maincontent > div.columns > div.column.main > div.products.wrapper.grid.products-grid > ol > li:nth-child(2) > div > div > strong > a'),
-    sizeOption: () => cy.get('#option-label-size-143-item-170'), // Size M
-    colorOption: () => cy.get('#option-label-color-93-item-58'), // Color Red
+    mobileMenuButton: () => cy.get('.nav-toggle'),
+    mobileMenuCategory: () => cy.xpath("//a[@id='ui-id-5']"),
+    mobileMenuProduct: () => cy.xpath("//a[@id='ui-id-19']//span[contains(text(),'Jackets')]"),
+    productItem: () => cy.xpath("//a[normalize-space()='Montana Wind Jacket']"),
+    sizeOption: () => cy.xpath("//div[@id='option-label-size-143-item-170']"),
+    colorOption: () => cy.xpath("//div[@id='option-label-color-93-item-58']"),
     quantityInput: () => cy.get('#qty'),
-    addToCartButton: () => cy.get('#product-addtocart-button'),
-    cartIcon: () => cy.get('body > div.page-wrapper > header > div.header.content > div.minicart-wrapper > a'),
-    proceedToCheckoutButton: () => cy.get('#top-cart-btn-checkout'),
-    placeOrderButton: () => cy.get('#checkout-payment-method-load > div > div > div.payment-method._active > div.payment-method-content > div.actions-toolbar > div > button'),
-    orderSuccessMessage: () => cy.contains('span', 'Thank you for your purchase!')
+    addToCartButton: () => cy.contains('button', 'Add to Cart').first(),
+    cartIcon: () => cy.get('.showcart'),
+    proceedToCheckoutButton: () => cy.contains('button', 'Proceed to Checkout').first(),
+    checkoutPageTitle: () => cy.contains('h1', 'Checkout'),
+    nextButton: () => cy.contains('button', 'Next').first(),
+    placeOrderButton: () => cy.xpath("//button[@title='Place Order']"),
+    orderSuccessMessage: () => cy.contains('span', 'Thank you for your purchase!'),
+    orderNumber: () => cy.get('.order-number').first()
   };
 
-  // Flujo optimizado
-  quickPurchase() {
-    this.elements.mobileMenuButton().click();
-    this.elements.mobileMenuCategory().click();
-    this.elements.jacketsProduct().click();
-    this.elements.productItem1().click();
-    this.elements.sizeOption().click();
-    this.elements.colorOption().click();
-    this.elements.quantityInput().clear().type('1');
-    this.elements.addToCartButton().click();
-    this.elements.cartIcon().click();
-    this.elements.proceedToCheckoutButton().click();
-    
-    // Asume dirección existente y método de pago configurado
-    cy.get('button[type="submit"]').then(($btn) => {
-      if ($btn.text().includes('Place Order')) {
-        $btn.click();
-      } else {
-        cy.get('button[title="Place Order"]').click();
-      }
-    });
-    
+  openMobileMenu() {
+    this.elements.mobileMenuButton().click({force: true});
     return this;
   }
 
-  verifyOrderSuccess() {
-    this.elements.orderSuccessMessage().should('be.visible');
+  selectMobileCategory(category) {
+    this.elements.mobileMenuCategory().click();
+    this.elements.mobileMenuProduct().click();
+    return this;
+  }
+
+  selectProduct(productName) {
+    this.elements.productItem(productName).click();
+    return this;
+  }
+
+  selectSize(size) {
+    this.elements.sizeOption(size).click();
+    return this;
+  }
+
+  selectColor(color) {
+    this.elements.colorOption(color).click();
+    return this;
+  }
+
+  setQuantity(quantity) {
+    this.elements.quantityInput().clear().type(quantity);
+    return this;
+  }
+
+  addToCart() {
+    this.elements.addToCartButton().click();
+    return this;
+  }
+
+  proceedToMobileCheckout() {
+    this.elements.cartIcon().click();
+    this.elements.proceedToCheckoutButton().click();
+    return this;
+  }
+  proceedToMobileNextStep() {
+    this.elements.nextButton()
+      .should('be.visible')
+      .scrollIntoView({ 
+        easing: 'linear',
+        duration: 1000, 
+        offset: { top: -50, left: 0 } 
+      })
+      .click({ force: true }); 
+    return this;
+  }
+
+  placeOrder() {
+    this.elements.placeOrderButton().click();
     return this;
   }
 }
