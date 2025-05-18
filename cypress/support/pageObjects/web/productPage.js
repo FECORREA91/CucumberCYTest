@@ -13,7 +13,7 @@ class ProductPage {
     checkoutPageTitle: () => cy.get('.page-title').contains('Checkout'),
  
 
-    addressModal: () => cy.xpath("//div[@id='modal-content-12']"),
+    addressModal: () => cy.xpath("//div[@id='modal-content-11']"),
     newAddress: ()=> cy.contains('span', 'New Address'),
     shippingAddress: ()=> cy.get('button.action-save-address'),
 
