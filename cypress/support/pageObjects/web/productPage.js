@@ -11,12 +11,9 @@ class ProductPage {
     miniCart: () => cy.xpath("//a[@class='action showcart']"),
     proceedToCheckoutButton: () => cy.get('#top-cart-btn-checkout'),
     checkoutPageTitle: () => cy.get('.page-title').contains('Checkout'),
- 
-
     addressModal: () => cy.xpath("//div[@id='modal-content-11']"),
     newAddress: ()=> cy.contains('span', 'New Address'),
     shippingAddress: ()=> cy.get('button.action-save-address'),
-
     companyField: () => cy.get('input[name="company"]'),
     addressField: () => cy.get('input[name="street[0]"]'),
     cityField: () => cy.get('input[name="city"]'),
@@ -77,10 +74,10 @@ _ensureModalClosed() {
   // 1. Verificación inicial con manejo de null/undefined
   this.elements.addressModal().then(($modal) => {
     if ($modal && $modal.length > 0 && $modal.is(':visible')) {
-      // 2. Intentar cierre normal con verificación
+      // 2. cierre normal con verificación
       this.elements.shippingAddress().click({ force: true });
       
-      // 3. Verificación con timeout y reintentos
+      // 3. Verificación con timeout y reintento
       const maxAttempts = 3;
       const checkModal = (attempt = 1) => {
         this.elements.addressModal().then(($m) => {
@@ -114,7 +111,7 @@ _ensureModalClosed() {
     }
   });
   
-  // 5. Verificación final tolerante
+  // 5. Verificación final
   this.elements.addressModal().should(($el) => {
     if ($el && $el.length > 0) {
       expect($el.is(':visible')).to.be.false;

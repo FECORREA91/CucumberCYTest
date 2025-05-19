@@ -92,7 +92,7 @@ class MobileRegistrationPage {
       .and('not.be.disabled')
       .click();
     
-    cy.url().should('include', 'customer/account'); // Verifica redirección
+    cy.url().should('include', 'customer/account');
     return this;
   }
 }

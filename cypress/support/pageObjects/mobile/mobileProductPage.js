@@ -21,8 +21,8 @@ class MobileProductPage {
     this.elements.mobileMenuButton()
       .should('be.visible')
       .scrollIntoView({ 
-        offset: { top: -50, left: 0 }, // Ajusta para headers fijos
-        duration: 500 // Scroll suave
+        offset: { top: -50, left: 0 }, 
+        duration: 500
       })
       .click({ force: true });
     return this;

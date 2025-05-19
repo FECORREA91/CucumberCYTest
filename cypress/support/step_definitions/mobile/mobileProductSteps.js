@@ -26,7 +26,6 @@ When('I add the product to my cart mobile', () => {
   MobileProductPage.addToCart();
 });
 
-// Corregido: cambia productPage por MobileProductPage
 When('I proceed to next step mobile option', () => {
   MobileProductPage.proceedToMobileNextStep();
 });
@@ -39,7 +38,6 @@ Then('I should see the mobile checkout page', () => {
   MobileProductPage.elements.checkoutPageTitle().should('be.visible');
 });
 
-// Corregido: elimina el .click() adicional
 When('I proceed to next step mobile', () => {
   MobileProductPage.proceedToMobileNextStep();
 });
