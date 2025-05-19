@@ -10,10 +10,10 @@ cypress/videos/
 cypress/downloads/
 cypress/fixtures/example.json
 
-# Reportes de pruebas (conserva solo los formatos fuente)
-cypress/reports/cucumber-json/ # Mantener los JSON si necesitas regenerar reportes
-cypress/reports/cucumber-html/ # Eliminar el HTML generado (se puede reconstruir)
-cypress/reports/Mochawesome/ # Si usas Mochawesome
+# Reportes de pruebas 
+cypress/reports/cucumber-json/ 
+cypress/reports/cucumber-html/ 
+cypress/reports/Mochawesome/ 
 cypress/results/
 
 # Cubrimiento de código
@@ -48,5 +48,5 @@ yarn-error.log*
 *~
 ~*
 
-# Archivos de configuración personalizados (excepto los necesarios)
-cypress.json # Solo si no usas cypress.config.js
+# Archivos de configuración personalizados
+cypress.json
