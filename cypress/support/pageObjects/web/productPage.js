@@ -2,7 +2,7 @@ class ProductPage {
   elements = {
     menCategoryLink: () => cy.contains('span', 'Men'),
     categoryClothes: () => cy.get('div.categories-menu a').eq(0),
-    productItem: (productName) => cy.xpath(`//a[normalize-space()='${productName}']`),
+    productItem: (productName) => cy.xpath(`//a[contains(text(),'${productName}')]`),
     sizeOption: (size) => cy.xpath(`//div[@option-label='${size}']`),
     colorOption: (color) => cy.xpath(`//div[@option-label='${color}']`),
     quantityInput: () => cy.get('#qty'),
