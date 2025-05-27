@@ -2,9 +2,9 @@ name: Cypress Tests with Reporting
 
 on:
   push:
-    branches: [ main, master ]
+    branches: [ main ]
   pull_request:
-    branches: [ main, master ]
+    branches: [ main ]
 
 jobs:
   cypress-run:
@@ -20,19 +20,19 @@ jobs:
     
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4  # Actualizado a v4
 
       - name: Install Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4  # Actualizado a v4
         with:
-          node-version: 18
+          node-version: 20  # Versión LTS actual
           cache: 'npm'
 
       - name: Install dependencies
         run: npm ci
 
       - name: Run Cypress tests
-        uses: cypress-io/github-action@v5
+        uses: cypress-io/github-action@v6  # Actualizado a v6
         with:
           browser: chrome
           build: npm run build
@@ -50,7 +50,7 @@ jobs:
 
       - name: Upload HTML report
         if: always()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4  # Actualizado a v4
         with:
           name: cypress-report-${{ matrix.device }}
           path: cypress/reports/mochawesome/html
@@ -58,7 +58,7 @@ jobs:
 
       - name: Upload screenshots
         if: failure()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4  # Actualizado a v4
         with:
           name: cypress-screenshots-${{ matrix.device }}
           path: cypress/screenshots
@@ -66,7 +66,7 @@ jobs:
 
       - name: Upload videos
         if: always()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4  # Actualizado a v4
         with:
           name: cypress-videos-${{ matrix.device }}
           path: cypress/videos
