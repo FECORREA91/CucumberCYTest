@@ -3,13 +3,14 @@ class MobileProductPage {
     mobileMenuButton: () => cy.get('.nav-toggle').first(),
     mobileMenuCategory: () => cy.xpath("//a[@id='ui-id-5']").first(),
     mobileMenuProduct: () => cy.xpath("//a[@id='ui-id-19']//span[contains(text(),'Jackets')]").first(),
-    productItem: () => cy.xpath("//a[normalize-space()='Montana Wind Jacket']").first(),
+    productItem: () => cy.xpath("//strong[@class='product name product-item-name']//a[@class='product-item-link'][normalize-space()='Montana Wind Jacket']").first(),
     sizeOption: () => cy.xpath("//div[@id='option-label-size-143-item-170']").first(),
     colorOption: () => cy.xpath("//div[@id='option-label-color-93-item-58']").first(),
     quantityInput: () => cy.get('#qty').first(),
     addToCartButton: () => cy.contains('button', 'Add to Cart').first(),
     cartIcon: () => cy.get('.showcart').first(),
-    proceedToCheckoutButton: () => cy.xpath("//button[@id='top-cart-btn-checkout']").first(),
+    cartDropdown: () => cy.get('.ui-dialog.mage-dropdown-dialog').first(),
+    proceedToCheckoutButton: () => cy.get("#top-cart-btn-checkout").first(),
     checkoutPageTitle: () => cy.contains('h1', 'Checkout').first(),
     nextButton: () => cy.contains('button', 'Next').first(),
     placeOrderButton: () => cy.xpath("//button[@title='Place Order']"),
@@ -60,10 +61,12 @@ class MobileProductPage {
   }
 
   proceedToMobileCheckout() {
-    this.elements.cartIcon().click();
-    this.elements.proceedToCheckoutButton().click();
+    this.elements.cartIcon().should('be.visible').click();
+    this.elements.cartDropdown().should('be.visible').and('have.css', 'display', 'block');
+    this.elements.proceedToCheckoutButton().should('be.visible').click({ force: true });
     return this;
   }
+
   proceedToMobileNextStep() {
     this.elements.nextButton()
       .should('be.visible')

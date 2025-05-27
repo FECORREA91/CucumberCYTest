@@ -17,7 +17,7 @@ class MobileLoginPage {
     successMessage: () => cy.get('div.message').first(),
     accountDashboard: () => cy.xpath("//div[@class='message-error error message']").first()
   };
-
+  
   navigate() {
     cy.viewport('iphone-6');
     cy.visit("https://magento.softwaretestingboard.com/");

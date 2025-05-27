@@ -8,7 +8,9 @@
     "report:clean": "rm -rf cypress/reports cypress/screenshots cypress/videos cypress/mochawesome-report",
     "report:open": "npx open-cli cypress/reports/mochawesome/index.html",
     "clean": "npm run report:clean",
-    "posttest": "npm run report"
+    "posttest": "npm run report",
+    "cy:open:mobile": "CYPRESS_deviceProfile=iphone13 cypress open --config viewportWidth=390,viewportHeight=844",
+    "cy:open:desktop": "CYPRESS_deviceProfile=desktop cypress open --config viewportWidth=1280,viewportHeight=720"
   },
   "devDependencies": {
     "@badeball/cypress-cucumber-preprocessor": "^22.0.1",

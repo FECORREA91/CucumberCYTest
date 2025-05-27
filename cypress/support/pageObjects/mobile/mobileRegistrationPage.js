@@ -22,7 +22,7 @@ class MobileRegistrationPage {
     cy.visit("https://magento.softwaretestingboard.com/");
     return this;
   }
-
+  
   generateCredentials() {
     const timestamp = Date.now();
     this.currentCredentials = {
