@@ -1,0 +1,18 @@
+jobs:
+  cypress-run:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        containers: [1, 2, 3] # Para paralelizar pruebas
+        # browser: [chrome, firefox, edge] # Para múltiples navegadores
+    name: Cypress run (container ${{ matrix.container }})
+    steps:
+      # ... mismos pasos que antes
+      - name: Run Cypress tests
+        uses: cypress-io/github-action@v5
+        with:
+          parallel: true
+          ci-build-id: ${{ github.run_id }}
+          group: 'All tests'
+          # ... resto de configuraciones
