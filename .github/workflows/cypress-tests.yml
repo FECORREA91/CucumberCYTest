@@ -1,18 +1,73 @@
+name: Cypress Tests with Reporting
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
 jobs:
   cypress-run:
     runs-on: ubuntu-latest
+    name: Cypress tests
     strategy:
-      fail-fast: false
       matrix:
-        containers: [1, 2, 3] # Para paralelizar pruebas
-        # browser: [chrome, firefox, edge] # Para múltiples navegadores
-    name: Cypress run (container ${{ matrix.container }})
+        device: ['desktop', 'iphone13', 'galaxyS21']
+    env:
+      CYPRESS_defaultDevice: ${{ matrix.device }}
+      CYPRESS_deviceProfile: ${{ matrix.device }}
+      CYPRESS_testType: ${{ contains(matrix.device, 'desktop') && 'web' || 'mobile' }}
+    
     steps:
-      # ... mismos pasos que antes
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
       - name: Run Cypress tests
         uses: cypress-io/github-action@v5
         with:
-          parallel: true
-          ci-build-id: ${{ github.run_id }}
-          group: 'All tests'
-          # ... resto de configuraciones
+          browser: chrome
+          build: npm run build
+          start: npm start
+          wait-on: 'http://localhost:3000'
+          config-file: cypress.config.js
+        env:
+          CI: true
+
+      - name: Generate HTML report
+        if: always()
+        run: |
+          npx mochawesome-merge "cypress/reports/mochawesome/*.json" > cypress/reports/mochawesome/combined.json
+          npx marge cypress/reports/mochawesome/combined.json -o cypress/reports/mochawesome/html --reportTitle "Cypress Test Report - ${{ matrix.device }}"
+
+      - name: Upload HTML report
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: cypress-report-${{ matrix.device }}
+          path: cypress/reports/mochawesome/html
+          retention-days: 7
+
+      - name: Upload screenshots
+        if: failure()
+        uses: actions/upload-artifact@v3
+        with:
+          name: cypress-screenshots-${{ matrix.device }}
+          path: cypress/screenshots
+          retention-days: 3
+
+      - name: Upload videos
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: cypress-videos-${{ matrix.device }}
+          path: cypress/videos
+          retention-days: 3
