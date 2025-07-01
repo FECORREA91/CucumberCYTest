@@ -3,6 +3,7 @@ const { defineConfig } = require("cypress");
 const createBundler = require("@bahmutov/cypress-esbuild-preprocessor");
 const createEsbuildPlugin = require("@badeball/cypress-cucumber-preprocessor/esbuild").default;
 const addCucumberPreprocessorPlugin = require("@badeball/cypress-cucumber-preprocessor").addCucumberPreprocessorPlugin;
+const allureWriter = require('@shelex/cypress-allure-plugin/writer');
 
 const mobileDevices = {
   iphone13: {
@@ -36,28 +37,22 @@ module.exports = defineConfig({
   e2e: {
     specPattern: "cypress/e2e/features/**/*.feature",
     experimentalRunAllSpecs: true,
-    
-    reporter: 'cypress-mochawesome-reporter',
-    reporterOptions: {
-      reportDir: path.join(__dirname, "cypress/reports/mochawesome"),
-      charts: true,
-      reportPageTitle: 'Test Report - Magento',
-      embeddedScreenshots: true,
-      inlineAssets: true,
-      saveJson: false,
-      quiet: true
-    },
+    video: true,
+    screenshotsFolder: 'allure-results/screenshots',
+    videosFolder: 'allure-results/videos',
     
     env: {
       mobileDevices: JSON.stringify(mobileDevices),
       defaultDevice: 'desktop',
       deviceProfile: 'desktop',
       testType: 'web',
-      grepFilterSpecs: true
+      allure: true,
+      allureReuseAfterSpec: true,
+      allureAddVideoOnPass: true,
+      allureAttachRequests: true
     },
 
     setupNodeEvents(on, config) {
-      require('cypress-mochawesome-reporter/plugin')(on);
       addCucumberPreprocessorPlugin(on, config);
       
       on("file:preprocessor", createBundler({
@@ -82,16 +77,17 @@ module.exports = defineConfig({
           if (targetDevice) {
             config.env.testType = 'mobile';
             config.env.deviceProfile = deviceName;
-            return `Mobile device set: ${targetDevice.name}`;
+            return `Dispositivo móvil configurado: ${targetDevice.name}`;
           }
-          throw new Error(`Unsupported device: ${deviceName}`);
+          throw new Error(`Dispositivo no soportado: ${deviceName}`);
         },
         setWebMode: () => {
           config.env.testType = 'web';
-          return 'Web mode set';
+          return 'Modo web configurado';
         }
       });
 
+      allureWriter(on, config);
       return config;
     }
   }

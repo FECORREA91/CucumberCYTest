@@ -2,22 +2,29 @@
   "name": "cypresstest",
   "version": "1.0.0",
   "scripts": {
-    "test": "cypress run --browser chrome --env grepFilterSpecs=true",
+    "test": "cypress run --browser chrome",
     "test:debug": "DEBUG=@badeball/cypress-cucumber-preprocessor* npm run test",
-    "report": "npx cypress-mochawesome-reporter",
-    "report:clean": "rm -rf cypress/reports cypress/screenshots cypress/videos cypress/mochawesome-report",
-    "report:open": "npx open-cli cypress/reports/mochawesome/index.html",
+    "test:mobile": "CYPRESS_deviceProfile=iphone13 npm run test",
+    "test:desktop": "CYPRESS_deviceProfile=desktop npm run test",
+    "allure:generate": "allure generate allure-results --clean -o allure-report",
+    "allure:open": "allure open allure-report",
+    "allure:serve": "allure serve allure-results",
+    "report:clean": "rm -rf allure-results allure-report cypress/screenshots cypress/videos",
     "clean": "npm run report:clean",
-    "posttest": "npm run report",
+    "posttest": "npm run allure:generate && npm run allure:open",
+    "cy:open": "cypress open",
     "cy:open:mobile": "CYPRESS_deviceProfile=iphone13 cypress open --config viewportWidth=390,viewportHeight=844",
-    "cy:open:desktop": "CYPRESS_deviceProfile=desktop cypress open --config viewportWidth=1280,viewportHeight=720"
+    "cy:open:desktop": "CYPRESS_deviceProfile=desktop cypress open --config viewportWidth=1280,viewportHeight=720",
+    "test:with-report": "npm run test && npm run allure:generate && npm run allure:open"
   },
   "devDependencies": {
     "@badeball/cypress-cucumber-preprocessor": "^22.0.1",
     "@bahmutov/cypress-esbuild-preprocessor": "^2.2.5",
-    "cypress": "^14.3.3",
-    "cypress-mochawesome-reporter": "^3.8.2",
+    "@shelex/cypress-allure-plugin": "^2.41.2",
+    "allure-commandline": "^2.34.1",
+    "chromium": "^3.0.3",
+    "cypress": "^14.5.0",
     "cypress-xpath": "^2.0.1",
-    "open-cli": "^8.0.0"
+    "fs": "^0.0.1-security"
   }
 }

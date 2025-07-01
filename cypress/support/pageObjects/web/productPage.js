@@ -58,7 +58,7 @@ class ProductPage {
   }
 
   proceedToCheckout() {
-    this.elements.miniCart().click();
+    this.elements.miniCart().should('be.visible').click();
     this.elements.proceedToCheckoutButton().should('be.visible').click({force: true});
     this.elements.newAddress().then($btn => {
       if ($btn.length > 0) {

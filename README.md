@@ -120,12 +120,15 @@ This project is a test automation suite built with **Cypress**, **Cucumber**, an
 3. **Generate Report:**
 
    ```bash
-   npm run report:mocha
+   npm install --save-dev @shelex/cypress-allure-plugin
+   npm install -g allure-commandline --save-dev
+   npm run allure:generate
+   npm run allure:open
    ```
 
 ## 📊 Test Reports
 
-* Integrated with **Mochawesome** for rich, interactive HTML reports.
+* Integrated with **Allure** for rich, interactive HTML reports.
 
 ## 🔧 Additional Tools and Plugins
 
