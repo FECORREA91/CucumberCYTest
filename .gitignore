@@ -11,10 +11,8 @@ cypress/downloads/
 cypress/fixtures/example.json
 
 # Reportes de pruebas 
-cypress/reports/cucumber-json/ 
-cypress/reports/cucumber-html/ 
-cypress/reports/Mochawesome/ 
-cypress/results/
+allure-report
+allure-results
 
 # Cubrimiento de código
 coverage/
