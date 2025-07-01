@@ -57,6 +57,8 @@ This project is a test automation suite built with **Cypress**, **Cucumber**, an
 
 ```
 📂 cypress-project
+├── 📁 allure-report
+├── 📁 allure-results
 ├── 📁 cypress
 │   ├── 📁 e2e
 │   │   └── 📁 features
@@ -68,12 +70,6 @@ This project is a test automation suite built with **Cypress**, **Cucumber**, an
 │   │           ├── 01_userLogin.feature
 │   │           ├── 02_registerNewUser.feature
 │   │           └── 03_productPurchase.feature
-│   ├── 📁 reports
-│   │   └── 📁 mochawesome
-│   ├── 📁 screenshots
-│   │   ├── 01_userLogin.feature
-│   │   ├── 02_registerNewUser.feature
-│   │   └── 03_productPurchase.feature
 │   └── 📁 support
 │       ├── 📁 pageObjects
 │       │   ├── 📁 mobile
