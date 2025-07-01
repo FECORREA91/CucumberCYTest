@@ -1,4 +1,4 @@
-name: Cypress Tests with Reporting
+name: Cypress Tests with Allure Reporting
 
 on:
   push:
@@ -20,13 +20,19 @@ jobs:
     
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4  
+        uses: actions/checkout@v4
 
       - name: Install Node.js
-        uses: actions/setup-node@v4  
+        uses: actions/setup-node@v4
         with:
           node-version: 18
           cache: 'npm'
+
+      - name: Install Java (for Allure)
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
 
       - name: Install dependencies
         run: npm ci
@@ -42,23 +48,31 @@ jobs:
         env:
           CI: true
 
-      - name: Generate HTML report
+      - name: Generate Allure report
         if: always()
         run: |
-          npx mochawesome-merge "cypress/reports/mochawesome/*.json" > cypress/reports/mochawesome/combined.json
-          npx marge cypress/reports/mochawesome/combined.json -o cypress/reports/mochawesome/html --reportTitle "Cypress Test Report - ${{ matrix.device }}"
+          npm install allure-commandline
+          npm run allure:generate
 
-      - name: Upload HTML report
+      - name: Upload Allure report as artifact
         if: always()
-        uses: actions/upload-artifact@v4  # Actualizado a v4
+        uses: actions/upload-artifact@v4
         with:
-          name: cypress-report-${{ matrix.device }}
-          path: cypress/reports/mochawesome/html
+          name: allure-report-${{ matrix.device }}
+          path: allure-report
+          retention-days: 7
+
+      - name: Archive Allure results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: allure-results-${{ matrix.device }}
+          path: allure-results
           retention-days: 7
 
       - name: Upload screenshots
         if: failure()
-        uses: actions/upload-artifact@v4  # Actualizado a v4
+        uses: actions/upload-artifact@v4
         with:
           name: cypress-screenshots-${{ matrix.device }}
           path: cypress/screenshots
@@ -66,8 +80,14 @@ jobs:
 
       - name: Upload videos
         if: always()
-        uses: actions/upload-artifact@v4  # Actualizado a v4
+        uses: actions/upload-artifact@v4
         with:
           name: cypress-videos-${{ matrix.device }}
           path: cypress/videos
           retention-days: 3
+
+      - name: Publish Allure Report
+        if: always()
+        uses: actions/upload-pages-artifact@v2
+        with:
+          path: allure-report
