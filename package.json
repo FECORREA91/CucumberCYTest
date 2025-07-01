@@ -24,7 +24,6 @@
     "allure-commandline": "^2.34.1",
     "chromium": "^3.0.3",
     "cypress": "^14.5.0",
-    "cypress-xpath": "^2.0.1",
-    "fs": "^0.0.1-security"
+    "cypress-xpath": "^2.0.1"
   }
 }
