@@ -11,8 +11,8 @@ cypress/downloads/
 cypress/fixtures/example.json
 
 # Reportes de pruebas 
-allure-report
-allure-results
+allure-report/
+allure-results/
 
 # Cubrimiento de código
 coverage/
